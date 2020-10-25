@@ -8,4 +8,15 @@ providers:
       watch: true
 
 log:
-    level: debug 
+    level: debug
+
+metrics:
+    influxDB:
+        address: influxdb:8086
+        protocol: http
+        database: traefik_monitoring
+        username: traefik
+        password: traefikpass
+        addEntryPointsLabels: true
+        addServicesLabels: true
+        

@@ -5,7 +5,6 @@ from redis import StrictRedis
 app = Flask(__name__)
 bdd = StrictRedis(host="redis", port=6379, db=0, decode_responses=True)
 
-
 @app.route("/")
 def hello_world():
     counter = int(bdd.get("counter"))

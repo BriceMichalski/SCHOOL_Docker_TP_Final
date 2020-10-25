@@ -1,0 +1,22 @@
+http:
+    middlewares:
+        grafana_strip_prefix:
+            stripPrefix:
+                prefixes:
+                    - "/monitoring"
+                forceSlash: true
+                
+    routers:
+        router-grafana:
+            entryPoints:
+                - web
+            middlewares:
+                - grafana_strip_prefix
+            service: grafana
+            rule: Path(`/monitoring`)
+    
+    services:
+        grafana:
+            loadBalancer:
+                servers:
+                  - url: "http://grafana:3000/"

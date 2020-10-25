@@ -1,6 +1,7 @@
 version: '3.4'
 
 services:
+    # Reverse proxy with Traefik
     reverse-proxy:
         image: traefik:v2.3
         restart: always
@@ -11,14 +12,14 @@ services:
             - "./docker/reverse-proxy/traefik.yml:/etc/traefik/traefik.yml"
             - "./docker/reverse-proxy/dynamic/:/etc/traefik/traefik.d/"
         networks:
-            - proxy 
-
+            - proxy
+            - monitoring
+    
+    # Hello World infra
     hello_world:
         build: 
             context: .
             dockerfile: ./docker/hello_world/Dockerfile
-        ports:
-            - "8080:8080"
         networks:
             - proxy 
             - redis_bdd
@@ -28,9 +29,34 @@ services:
         image: redis:6.0-alpine
         networks:
             - redis_bdd
+    
+    # Monitoring infra 
+    influxdb:
+        image: influxdb:1.8
+        environment:
+            - INFLUXDB_DB=traefik_monitoring
+            - INFLUXDB_ADMIN_USER=admin
+            - INFLUXDB_ADMIN_PASSWORD=6EQUJ5wow
+            - INFLUXDB_USER=traefik
+            - INFLUXDB_USER_PASSWORD=traefikpass
+        networks:
+            - monitoring
+    
+    grafana:
+        image: grafana/grafana:latest
+        ports:
+            - "3000:3000"
+        networks:
+            - proxy
+            - monitoring
+
 
 networks:
     proxy:
+        name: traefik_proxy
+        driver: bridge
+    monitoring:
+        name: traefik_monitoring
         driver: bridge
     redis_bdd:
         driver: bridge
