@@ -1,0 +1,11 @@
+entryPoints:
+    web:
+        address: ":80"
+
+providers:
+    file:
+      directory: "/etc/traefik/traefik.d/"
+      watch: true
+
+log:
+    level: debug 

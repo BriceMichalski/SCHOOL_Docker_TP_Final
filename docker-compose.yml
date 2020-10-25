@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+    reverse-proxy:
+        image: traefik:v2.3
+        restart: always
+        command: --api.insecure=true
+        ports:
+            - "80:80"
+        volumes:
+            - "./docker/reverse-proxy/traefik.yml:/etc/traefik/traefik.yml"
+            - "./docker/reverse-proxy/dynamic/:/etc/traefik/traefik.d/"
+        networks:
+            - proxy 
+
+    hello_world:
+        build: 
+            context: .
+            dockerfile: ./docker/hello_world/Dockerfile
+        ports:
+            - "8080:8080"
+        networks:
+            - proxy 
+        labels:
+            - "traefik.port=8080"
+
+    redis:
+        image: redis:6.0-alpine
+        networks:
+            - redis_bdd
+
+networks:
+    proxy:
+        driver: bridge
+    redis_bdd:
+        driver: bridge

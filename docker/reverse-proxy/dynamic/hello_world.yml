@@ -1,0 +1,22 @@
+http:
+    middlewares:
+        hello_world_strip_prefix:
+            stripPrefix:
+                prefixes:
+                    - "/hello"
+                forceSlash: true
+                
+    routers:
+        router-hello:
+            entryPoints:
+                - web
+            middlewares:
+                - hello_world_strip_prefix
+            service: hello_world
+            rule: Path(`/hello`)
+    
+    services:
+        hello_world:
+            loadBalancer:
+                servers:
+                  - url: "http://hello_world:8080/"
