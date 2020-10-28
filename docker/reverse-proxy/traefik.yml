@@ -7,6 +7,11 @@ providers:
       directory: "/etc/traefik/traefik.d/"
       watch: true
 
+api:
+    dashboard: true
+    insecure: true
+
+
 log:
     level: debug
 
@@ -14,9 +19,9 @@ metrics:
     influxDB:
         address: influxdb:8086
         protocol: http
-        database: traefik_monitoring
-        username: traefik
-        password: traefikpass
+        database: proxy_monitoring
+        username: supervisor
+        password: very_secret
         addEntryPointsLabels: true
         addServicesLabels: true
         

@@ -1,0 +1,20 @@
+apiVersion: 1
+
+deleteDatasources:
+  - name: Prometheus
+  - name: Graphite
+  - name: InfluxDB
+
+datasources:
+  - name: telegraf
+    type: influxdb
+    access: proxy
+    url: http://influxdb:8086
+    database: proxy_monitoring
+    user: supervisor
+    password: very_secret
+    isDefault: true
+    jsonData:
+      httpMode: GET
+    version: 1
+    editable: false

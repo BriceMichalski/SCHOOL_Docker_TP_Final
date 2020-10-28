@@ -1,19 +1,17 @@
 http:
     middlewares:
-        grafana_strip_prefix:
-            stripPrefix:
-                prefixes:
-                    - "/monitoring"
-                forceSlash: true
+        content_type_autodetect:
+            contentType:
+                autoDetect: false
                 
     routers:
         router-grafana:
             entryPoints:
                 - web
             middlewares:
-                - grafana_strip_prefix
+                - content_type_autodetect
             service: grafana
-            rule: Path(`/monitoring`)
+            rule: Host(`monitoring.localhost`)
     
     services:
         grafana:

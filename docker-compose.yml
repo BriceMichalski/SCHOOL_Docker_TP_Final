@@ -8,6 +8,7 @@ services:
         command: --api.insecure=true
         ports:
             - "80:80"
+            - "8080:8080"
         volumes:
             - "./docker/reverse-proxy/traefik.yml:/etc/traefik/traefik.yml"
             - "./docker/reverse-proxy/dynamic/:/etc/traefik/traefik.d/"
@@ -29,34 +30,41 @@ services:
         image: redis:6.0-alpine
         networks:
             - redis_bdd
-    
+
     # Monitoring infra 
     influxdb:
         image: influxdb:1.8
         environment:
-            - INFLUXDB_DB=traefik_monitoring
+            - INFLUXDB_DB=${INFLUXDB_DB_NAME}
             - INFLUXDB_ADMIN_USER=admin
             - INFLUXDB_ADMIN_PASSWORD=6EQUJ5wow
-            - INFLUXDB_USER=traefik
-            - INFLUXDB_USER_PASSWORD=traefikpass
+            - INFLUXDB_USER=${INFLUXDB_USER}
+            - INFLUXDB_USER_PASSWORD=${INFLUXDB_PASSWORD}
+
         networks:
             - monitoring
     
     grafana:
-        image: grafana/grafana:latest
-        ports:
-            - "3000:3000"
+        image: grafana/grafana
+        volumes:
+            - "./docker/grafana/grafana.ini:/etc/grafana/grafana.ini"
+            - './docker/grafana/provisioning:/etc/grafana/provisioning'
+        environment:
+            GF_SERVER_DOMAIN: ${ROOT_DOMAIN}
+            GF_INSTALL_PLUGINS: "grafana-piechart-panel"
+            GF_AUTH_ANONYMOUS_ENABLED: "true"
+            GF_AUTH_BASIC_ENABLED: "false"
         networks:
             - proxy
             - monitoring
 
-
 networks:
     proxy:
-        name: traefik_proxy
+        name: traefik_network
         driver: bridge
     monitoring:
-        name: traefik_monitoring
+        name: monitoring_network
         driver: bridge
     redis_bdd:
+        name: redis_network
         driver: bridge

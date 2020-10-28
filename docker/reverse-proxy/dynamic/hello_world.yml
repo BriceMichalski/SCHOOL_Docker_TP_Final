@@ -13,7 +13,7 @@ http:
             middlewares:
                 - hello_world_strip_prefix
             service: hello_world
-            rule: Path(`/hello`)
+            rule: PathPrefix(`/hello`)
     
     services:
         hello_world:

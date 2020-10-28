@@ -1,0 +1,100 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 2,
+    "links": [],
+    "panels": [
+      {
+        "datasource": null,
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 16,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "content": "<h1 style=\"text-align:center\" >Elective Docker</h1>\n\n<br/>\n<hr/>\n<h2>Pour acceder aux métriques du reverse proxy : </h2>\n<p>\n    <ul>\n        <li><a href=\"http://monitoring.localhost/d/reverse-proxy/request-metrics?orgId=1&refresh=10s&from=now-3h&to=now&kiosk=tv\">Dashboard de surveillance des requetes</a></li>\n    </ul>\n<p>\n\n\n<hr/>\n<h2>Pour acceder à la configuration du reverse proxy : </h2>\n<p>\n    <ul>\n        <li><a href=\"http://localhost:8080/\">Dashboard de configuration du reverse proxy</a></li>\n    </ul>\n<p>\n<hr/>\n",
+          "mode": "html"
+        },
+        "pluginVersion": "7.1.0",
+        "targets": [
+          {
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "mean"
+                }
+              ]
+            ],
+            "tags": []
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Welcome",
+        "type": "text"
+      }
+    ],
+    "schemaVersion": 26,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "home",
+    "uid": "F8FA0_pGz",
+    "version": 1
+  }
