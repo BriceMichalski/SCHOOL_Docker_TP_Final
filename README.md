@@ -2,7 +2,7 @@
 
 ## Pour lancer le projet:
 
-*   cloner le projet : `git clone https://github.com/BriceMichalski/SCHOOL_Docker_TP_Final.git && SCHOOL_Docker_TP_Final`
+*   cloner le projet : `git clone https://github.com/BriceMichalski/SCHOOL_Docker_TP_Final.git && cd SCHOOL_Docker_TP_Final`
 *   Lancer la commande : `docker-compose up -d`
 
 ## List des service:
@@ -31,4 +31,5 @@ Ce script injecte aleatoirement des utilisateurs en base depuis l'api de http://
 
 ## Pour acceder à la configuration du reverse proxy :
 
-*   [Dashboard de configuration du reverse proxy](\"http://localhost:8080/\")
+*   Visualisation de la configuration du reverse proxy : `localhost:8080`
+
