@@ -33,3 +33,6 @@ Ce script injecte aleatoirement des utilisateurs en base depuis l'api de http://
 
 *   Visualisation de la configuration du reverse proxy : `localhost:8080`
 
+## Architecture: 
+
+![infrastructure](infrastructure.png)
