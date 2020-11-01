@@ -19,8 +19,6 @@
     "links": [],
     "panels": [
       {
-        "datasource": null,
-        "description": "",
         "fieldConfig": {
           "defaults": {
             "custom": {}
@@ -28,15 +26,15 @@
           "overrides": []
         },
         "gridPos": {
-          "h": 16,
+          "h": 32,
           "w": 24,
           "x": 0,
           "y": 0
         },
-        "id": 2,
+        "id": 23763571993,
         "options": {
-          "content": "<h1 style=\"text-align:center\" >Elective Docker</h1>\n\n<br/>\n<hr/>\n<h2>Pour acceder aux métriques du reverse proxy : </h2>\n<p>\n    <ul>\n        <li><a href=\"http://monitoring.localhost/d/reverse-proxy/request-metrics?orgId=1&refresh=10s&from=now-3h&to=now&kiosk=tv\">Dashboard de surveillance des requetes</a></li>\n    </ul>\n<p>\n\n\n<hr/>\n<h2>Pour acceder à la configuration du reverse proxy : </h2>\n<p>\n    <ul>\n        <li><a href=\"http://localhost:8080/\">Dashboard de configuration du reverse proxy</a></li>\n    </ul>\n<p>\n<hr/>\n",
-          "mode": "html"
+          "mode": "html",
+          "content": "<h1 style=\"text-align:center\" >Elective Docker</h1>\n\n<br/>\n<hr/>\n<h2>Pour générer du trafic aléatoirement:</h2>\n<p>\n    <ul>\n<li>Avoir jq d'installé</li>\n        <li>Avoir curl d'installé</li>\n        <li>Lancer la commande : <code>./random_traffic.sh</code> </li>\n    </ul>\n<p>\n<hr/>\n<h2>Pour acceder aux métriques du reverse proxy : </h2>\n<p>\n    <ul>\n        <li><a href=\"http://monitoring.localhost/d/reverse-proxy/request-metrics?orgId=1&refresh=10s&from=now-3h&to=now&kiosk=tv\">Dashboard de surveillance des requetes</a></li>\n    </ul>\n<p>\n\n\n<hr/>\n<h2>Pour acceder à la configuration du reverse proxy : </h2>\n<p>\n    <ul>\n        <li><a href=\"http://localhost:8080/\">Dashboard de configuration du reverse proxy</a></li>\n    </ul>\n<p>\n<hr/>\n"
         },
         "pluginVersion": "7.1.0",
         "targets": [
@@ -76,10 +74,13 @@
             "tags": []
           }
         ],
+        "type": "text",
+        "transparent": true,
+        "description": "",
         "timeFrom": null,
         "timeShift": null,
-        "title": "Welcome",
-        "type": "text"
+        "title": "Monitoring Home Page",
+        "datasource": null
       }
     ],
     "schemaVersion": 26,

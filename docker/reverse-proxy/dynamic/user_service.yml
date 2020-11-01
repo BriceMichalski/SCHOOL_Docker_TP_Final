@@ -1,0 +1,18 @@
+http:            
+    routers:
+        router-put-user:
+            entryPoints:
+                - web
+            service: user_service
+            rule: PathPrefix(`/put_name`)
+        router-get-user:
+            entryPoints:
+                - web
+            service: user_service
+            rule: PathPrefix(`/get_users`)
+    
+    services:
+        user_service:
+            loadBalancer:
+                servers:
+                  - url: "http://user_service:8080/"

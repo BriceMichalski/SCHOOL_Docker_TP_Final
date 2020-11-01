@@ -1,19 +1,10 @@
-http:
-    middlewares:
-        hello_world_strip_prefix:
-            stripPrefix:
-                prefixes:
-                    - "/hello"
-                forceSlash: true
-                
+http:       
     routers:
         router-hello:
             entryPoints:
                 - web
-            middlewares:
-                - hello_world_strip_prefix
             service: hello_world
-            rule: PathPrefix(`/hello`)
+            rule: Path(`/`)
     
     services:
         hello_world:

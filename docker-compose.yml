@@ -4,6 +4,7 @@ services:
     # Reverse proxy with Traefik
     reverse-proxy:
         image: traefik:v2.3
+        container_name: reverse-proxy
         restart: always
         command: --api.insecure=true
         ports:
@@ -21,19 +22,23 @@ services:
         build: 
             context: .
             dockerfile: ./docker/hello_world/Dockerfile
+        container_name: hello_world
         networks:
             - proxy 
             - redis_bdd
         depends_on:
             - redis
+
     redis:
         image: redis:6.0-alpine
+        container_name: redis
         networks:
             - redis_bdd
 
     # Monitoring infra 
     influxdb:
         image: influxdb:1.8
+        container_name: influxdb
         environment:
             - INFLUXDB_DB=${INFLUXDB_DB_NAME}
             - INFLUXDB_ADMIN_USER=admin
@@ -42,10 +47,12 @@ services:
             - INFLUXDB_USER_PASSWORD=${INFLUXDB_PASSWORD}
 
         networks:
+
             - monitoring
     
     grafana:
         image: grafana/grafana
+        container_name: grafana
         volumes:
             - "./docker/grafana/grafana.ini:/etc/grafana/grafana.ini"
             - './docker/grafana/provisioning:/etc/grafana/provisioning'
@@ -58,13 +65,40 @@ services:
             - proxy
             - monitoring
 
+    # Monitoring infra
+    user:
+        build:
+            context: . 
+            dockerfile: ./docker/user_service/Dockerfile
+        container_name: user_service
+        networks:
+            - proxy 
+            - mongodb_bdd
+        depends_on:
+            - mongodb
+    
+    mongodb:
+        image: mongo:latest
+        restart: always
+        container_name: mongodb
+        expose:
+            - '3306'
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: admin
+            MONGO_INITDB_ROOT_PASSWORD: 6EQUJ5wow
+            MONGO_INITDB_DATABASE: user_service_db
+        networks:
+            - mongodb_bdd
+
 networks:
-    proxy:
+    proxy: # Add this network on your container to expose it on localhost
         name: traefik_network
         driver: bridge
-    monitoring:
+    monitoring: # Add this network on your container to report metrics
         name: monitoring_network
         driver: bridge
-    redis_bdd:
+    redis_bdd: # Add this network on your container to reach redis node 
         name: redis_network
         driver: bridge
+    mongodb_bdd: # Add this network on your container to reach mongodb node 
+        name: mongodb_network
