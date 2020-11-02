@@ -5,9 +5,9 @@
 *   cloner le projet : `git clone https://github.com/BriceMichalski/SCHOOL_Docker_TP_Final.git && cd SCHOOL_Docker_TP_Final`
 *   Lancer la commande : `docker-compose up -d`
 
-## List des service:
+## Liste des services:
 
-*  Service Hello World avec compteur de visite 
+*  Service Hello World avec compteur de visites 
 
    * accessible sur : `localhost`
 
